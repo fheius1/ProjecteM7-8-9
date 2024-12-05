@@ -2,14 +2,14 @@
 
 return [
     'user' => [
-            'name' => env("USUARI_NAME", "UsuariDefault"),
-            'email' => env("USUARI_EMAIL", "usuari@example.com"),
+            'name' => env("NOM_USUARI", "UsuariDefault"),
+            'email' => env("EMAIL_USUARI", "usuari@example.com"),
             'password' => env("USUARI_PASSWORD", "alumne1234"),
             ],
     'professor' => [
-            'name' => env("PROFESSOR_NAME", "ProfessorDefault"),
-            'email' => env("PROFESSOR_EMAIL", "professor@example.com"),
-            'password' => env("USER_PASSWORD", "professor1234"),
+            'name' => env("NOM_PROFESSOR", "ProfessorDefault"),
+            'email' => env("MAIL_PROFESSOR", "professor@example.com"),
+            'password' => env("PROFESSOR_PASSWORD", "professor1234"),
             ],
         ];
 

@@ -33,7 +33,7 @@ class CreacioUsuari
         // Create a team for the user
         $user->ownedTeams()->create([
             'name' => "{$user->name}'s Team",
-            'personal_team' => true, // Ensure the personal_team field is set
+            'personal_team' => true,
         ]);
     }
 }
