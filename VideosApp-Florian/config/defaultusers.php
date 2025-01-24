@@ -11,5 +11,8 @@ return [
             'email' => env("MAIL_PROFESSOR", "professor@example.com"),
             'password' => env("PROFESSOR_PASSWORD", "professor1234"),
             ],
-        ];
-
+    'team' => [
+        'name' => env("NOM_EQUIP", "EquipPerDefecte"),
+        'description' => env("DESCRIPCIO_EQUIP", "Equip per defecte"),
+    ],
+];

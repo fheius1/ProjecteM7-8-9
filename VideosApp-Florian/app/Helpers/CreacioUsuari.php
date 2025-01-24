@@ -9,33 +9,21 @@ use Illuminate\Support\Facades\Validator;
 
 class CreacioUsuari
 {
-    public function crearUsuari(array $user)
+    public static function crearUsuari()
     {
-        Validator::make($user, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
-        ])->validate();
-
-        return DB::transaction(function () use ($user) {
-            return tap(User::create([
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'password' => Hash::make($user['password']),
-            ]), function (User $user) {
-                $this->creacioEquip($user);
-            });
-        });
+        return User::create([
+            'name' => 'Florex',
+            'email' => 'fheius@iesebre.com',
+            'password' => Hash::make('contra'),
+        ]);
     }
 
     protected function creacioEquip(User $user)
     {
-        // Create a team for the user
-        $user->ownedTeams()->create([
+        // Create a team for the user and return it
+        return $user->ownedTeams()->create([
             'name' => "{$user->name}'s Team",
             'personal_team' => true,
         ]);
     }
 }
-
-

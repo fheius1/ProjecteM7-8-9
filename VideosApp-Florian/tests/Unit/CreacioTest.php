@@ -27,6 +27,7 @@ class CreacioTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => config('defaultusers.user.email')]);
         $this->assertDatabaseHas('teams', ['name' => "{$user->name}'s Team", 'user_id' => $user->id]);
         $this->assertNotNull($user->ownedTeams->first());
+        $this->assertEquals($user->current_team_id, $user->ownedTeams->first()->id); // Check if current_team_id is set correctly
     }
 
     public function testProfessor()
@@ -45,6 +46,7 @@ class CreacioTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => config('defaultusers.professor.email')]);
         $this->assertDatabaseHas('teams', ['name' => "{$user->name}'s Team", 'user_id' => $user->id]);
         $this->assertNotNull($user->ownedTeams->first());
+        $this->assertEquals($user->current_team_id, $user->ownedTeams->first()->id); // Check if current_team_id is set correctly
     }
 
     public function testEmailUnic()
@@ -56,7 +58,6 @@ class CreacioTest extends TestCase
             'email' => config('defaultusers.user.email'),
             'password' => config('defaultusers.user.password'),
         ]);
-
 
         (new CreacioUsuari)->crearUsuari([
             'name' => 'Another User',
