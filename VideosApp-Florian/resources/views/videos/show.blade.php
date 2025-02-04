@@ -15,26 +15,6 @@
             min-height: 100vh;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background-color: #007BFF;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .navbar a:hover {
-            color: #e0e0e0;
-        }
-
         /* Page Content Styles */
         .container {
             max-width: 800px;
@@ -69,31 +49,7 @@
             height: 100%;
             border: none;
         }
-
-        /* Footer Styles */
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
     </style>
-
-    <!-- Barra de navegacio -->
-    <nav class="navbar">
-        <a href="{{ route('home') }}">Videos App</a>
-        <a href="{{ route('home') }}">Home</a>
-    </nav>
 
     <!-- Contingut de la pagina -->
     <div class="container">
@@ -109,10 +65,4 @@
                 allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; {{ date('Y') }} Videos App</p>
-        <p>Fet per <a href="https://github.com/fheius1" target="_blank">Florian Heius</a></p>
-    </footer>
 @endsection

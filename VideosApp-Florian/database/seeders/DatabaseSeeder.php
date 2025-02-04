@@ -25,6 +25,19 @@ class DatabaseSeeder extends Seeder
         DefaultVideos::getDefaultValues();
     }
 
+    /**
+     * Create a regular user.
+     */
+    public function create_regular_user(): void
+    {
+        User::create([
+            'name' => 'regular',
+            'email' => 'regular@videosapp.com',
+            'password' => bcrypt('123456789'),
+        ]);
+    }
+
+
 }
 
 

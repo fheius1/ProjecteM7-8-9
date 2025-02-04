@@ -1,22 +1,18 @@
+<!-- resources/views/layouts/videos-app-layout.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos App</title>
-
+    <title>@yield('title')</title>
 </head>
 <body>
-<header>
+<x-navbar/>
 
-</header>
-
-<main>
+<div class="container">
     @yield('content')
-</main>
+</div>
 
-<footer>
-
-</footer>
+<x-footer/>
 </body>
 </html>
