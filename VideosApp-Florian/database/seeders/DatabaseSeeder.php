@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Video;
 use App\Helpers\DefaultVideos;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,29 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
         User::truncate();
         Video::truncate();
+        Role::truncate();
 
-        CreacioUsuari::crearUsuari();
+        // Create roles
+        $superAdminRole = Role::create(['name' => 'super-admin']);
+        $regularUserRole = Role::create(['name' => 'regular-user']);
+        $videoManagerRole = Role::create(['name' => 'video-manager']);
+
+        // Create users
+        $superAdmin = CreacioUsuari::crearUsuariSuperAdmin();
+        $regularUser = CreacioUsuari::crearUsuariRegular();
+        $videoManager = CreacioUsuari::crearUsuariVideoManager();
+
+        // Assign roles to users
+        $superAdmin->assignRole($superAdminRole);
+        $regularUser->assignRole($regularUserRole);
+        $videoManager->assignRole($videoManagerRole);
 
         DefaultVideos::getDefaultValues();
     }
-
-    /**
-     * Create a regular user.
-     */
-    public function create_regular_user(): void
-    {
-        User::create([
-            'name' => 'regular',
-            'email' => 'regular@videosapp.com',
-            'password' => bcrypt('123456789'),
-        ]);
-    }
-
-
 }
-
-
-

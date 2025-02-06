@@ -18,4 +18,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/videos/{video}/edit', [VideosController::class, 'edit'])->name('videos.edit');
+    Route::put('/videos/{video}', [VideosController::class, 'update'])->name('videos.update');
+});
+
 
