@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Helpers\CreacioUsuari;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Video;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Video::truncate();
         Role::truncate();
+
 
         // Create roles
         $superAdminRole = Role::create(['name' => 'super-admin']);

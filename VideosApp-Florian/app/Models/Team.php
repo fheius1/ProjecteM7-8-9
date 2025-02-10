@@ -45,4 +45,9 @@ class Team extends JetstreamTeam
             'personal_team' => 'boolean',
         ];
     }
+
+
+
+
+
 }

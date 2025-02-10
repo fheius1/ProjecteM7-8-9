@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use PHPUnit\Util\Test;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -75,5 +77,10 @@ class User extends Authenticatable
 
         $this->ownedTeams()->save($team);
         $this->switchTeam($team);
+    }
+
+    public function tests(): HasMany
+    {
+        return $this->hasMany(Test::class);
     }
 }

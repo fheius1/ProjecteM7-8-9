@@ -4,16 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideosController extends Controller
 {
     /**
-     * Mostra un video en especific
+     * Show a specific video.
      */
     public function show($id)
     {
         $video = Video::findOrFail($id);
         return view('videos.show', compact('video'));
+    }
+
+    public function index()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+
+        if (Auth::user()->can('manage videos')) {
+            $videos = Video::all();
+            return view('videos.index', compact('videos'));
+        }
+
+        // If the user does not have the permission, abort with 403
+        abort(403);
     }
 
     /**
@@ -24,16 +41,5 @@ class VideosController extends Controller
         $video = Video::findOrFail($id);
         $users = $video->testedByUsers;
         return response()->json($users);
-    }
-
-    public function edit(Video $video)
-    {
-        return view('videos.edit', compact('video'));
-    }
-
-    public function update(Request $request, Video $video)
-    {
-        $video->update($request->all());
-        return redirect()->route('videos.edit', $video)->with('success', 'Video updated successfully');
     }
 }

@@ -19,3 +19,36 @@ El projecte VideosApp és una aplicació web dissenyada per gestionar i visualit
 3. **Creacio testos**: Crear testos per a la creacio i format dels videos.
 4. **Revisio Larastran**: Instalacio de la llibreria Larastran per a la formatacio de dates i revisio del codi.
 
+## Sprint 3
+**Correcció d'errors**: Corregir els errors detectats en el Sprint 2.
+
+**Instal·lació de spatie/laravel-permission**: Instal·lar el paquet spatie/laravel-permission.
+
+**Migració super_admin**: Crear una migració per afegir el camp super_admin a la taula dels usuaris.
+
+**Model d’usuaris**:
+- Afegir la funció `testedBy()`.
+- Afegir la funció `isSuperAdmin()`.
+
+**Helpers**:
+- Afegir el superadmin al professor a la funció `create_default_professor`.
+- Crear la funció `add_personal_team()` per separar el codi de la creació del team dels usuaris.
+- Crear les funcions:
+    - `create_regular_user()` amb valors (regular, regular@videosapp.com, 123456789).
+    - `create_video_manager_user()` amb valors (Video Manager, videosmanager@videosapp.com, 123456789).
+    - `create_superadmin_user()` amb valors (Super Admin, superadmin@videosapp.com, 123456789).
+    - `define_gates()`.
+    - `create_permissions()`.
+
+**AppServiceProvider**:
+- Registrar les polítiques d’autorització a la funció `book`.
+- Definir les portes d'accés.
+
+**DatabaseSeeder**:
+- Posar els permisos i els usuaris superadmin, regular user i video manager per defecte.
+
+**Publicació de stubs**: Seguir l’exemple de Laravel News.
+
+**Creació de tests**:
+- `VideosManageControllerTest` a `tests/Feature/Videos/`:
+- `UserTest` a `tests/Unit/`:
