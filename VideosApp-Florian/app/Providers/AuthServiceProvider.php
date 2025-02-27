@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
@@ -14,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -34,14 +35,12 @@ class AuthServiceProvider extends ServiceProvider
     public function define_gates(): void
     {
         Gate::define('view-videos', function (User $user) {
-            return $user->hasRole('video-manager') || $user->hasRole('super-admin');
         });
 
         Gate::define('manage-videos', function (User $user) {
             return $user->hasRole('super-admin');
         });
     }
-
 
     /**
      * Create the permissions.
