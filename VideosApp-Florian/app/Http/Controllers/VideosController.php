@@ -29,7 +29,7 @@ class VideosController extends Controller
             return view('videos.index', compact('videos'));
         }
 
-        // If the user does not have the permission, abort with 403
+        // Si l'usuari no te permisos, dona l'error 403
         abort(403);
     }
 
@@ -43,3 +43,9 @@ class VideosController extends Controller
         return response()->json($users);
     }
 }
+
+
+
+
+
+

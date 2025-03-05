@@ -52,3 +52,60 @@ El projecte VideosApp és una aplicació web dissenyada per gestionar i visualit
 **Creació de tests**:
 - `VideosManageControllerTest` a `tests/Feature/Videos/`:
 - `UserTest` a `tests/Unit/`:
+
+
+## Sprint 4
+**Correcció d'errors**: Corregir els errors detectats en el Sprint 3.
+
+**VideosManageController**: S'ha creat el "VideosManageController" amb les funcions següents:
+- `testedBy()`
+- `index()`
+- `store()`
+- `show($id)`
+- `edit($id)`
+- `update($id)`
+- `destroy($id)`
+
+**VideosController**: S'ha creat la funció `index()` per llistar tots els vídeos.
+
+**DatabaseSeeder**: S'han afegit 3 vídeos creats en ajudants al "DatabaseSeeder".
+
+**Vistes per al CRUD**: S'han creat les vistes següents per a les operacions CRUD, accessibles només per als usuaris amb els permisos adequats:
+- `resources/views/videos/manage/index.blade.php`: Conté la taula CRUD per als vídeos.
+- `resources/views/videos/manage/create.blade.php`: Conté el formulari per crear vídeos, amb atributs `data-qa` per facilitar la identificació de la prova.
+- `resources/views/videos/manage/edit.blade.php`: Conté el formulari per editar vídeos.
+- `resources/views/videos/manage/delete.blade.php`: Conté la confirmació de l'eliminació del vídeo.
+
+**Videos Index View**: Creat `resources/views/videos/index.blade.php` per mostrar tots els vídeos amb enllaços als detalls del vídeo.
+
+**Tests**:
+- S'ha modificat `user_with_permissions_can_manage_videos()` per garantir que hi hagi 3 vídeos.
+- S'han creat les funcions en el helper per crear permisos de vídeo per a CRUD i assignar-los als usuaris corresponents.
+
+**VideoTest**: Creacio de les següents funcions:
+- `user_without_permissions_can_see_default_videos_page`
+- `user_with_permissions_can_see_default_videos_page`
+- `not_logged_users_can_see_default_videos_page`
+
+**VideosManageControllerTest**: Creacio de les següents funcions:
+- `loginAsVideoManager`
+- `loginAsSuperAdmin`
+- `loginAsRegularUser`
+- `user_with_permissions_can_see_add_videos`
+- `user_without_videos_manage_create_cannot_see_add_videos`
+- `user_with_permissions_can_store_videos`
+- `user_without_permissions_cannot_store_videos`
+- `user_with_permissions_can_destroy_videos`
+- `user_without_permissions_cannot_destroy_videos`
+- `user_with_permissions_can_see_edit_videos`
+- `user_without_permissions_cannot_see_edit_videos`
+- `user_with_permissions_can_update_videos`
+- `user_without_permissions_cannot_update_videos`
+- `user_with_permissions_can_manage_videos`
+- `regular_users_cannot_manage_videos`
+- `guest_users_cannot_manage_videos`
+- `superadmins_can_manage_videos`
+
+**Routes**: S'han creat les rutes "vídeos/manage" per al CRUD de vídeo amb el middleware corresponent i la ruta d'índex de vídeo.
+
+**Layout**: Modificar  la barra de navegacio per afegir les noves rutes

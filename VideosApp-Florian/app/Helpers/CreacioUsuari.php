@@ -5,6 +5,8 @@ namespace App\Helpers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class CreacioUsuari
 {
@@ -55,6 +57,9 @@ class CreacioUsuari
             'password' => Hash::make('123456789'),
         ]);
 
+        // Assignar permisos
+        $user->givePermissionTo('manage videos');
+
         // Crear un equip per l'usuari
         self::creacioEquip($user);
 
@@ -70,6 +75,9 @@ class CreacioUsuari
             'super_admin' => true,
         ]);
 
+        // Assignar permisos
+        $user->givePermissionTo(Permission::all());
+
         // Crear un equip per l'usuari
         self::creacioEquip($user);
 
@@ -78,22 +86,12 @@ class CreacioUsuari
 
     public static function create_default_professor()
     {
-        // Check if the Super Admin user already exists
-        $superadmin = User::firstOrCreate(
-            ['email' => 'superadmin@videosapp.com'],
-            ['name' => 'Super Admin', 'password' => Hash::make('123456789'), 'super_admin' => true]
-        );
-
         $professor = User::create([
             'name' => 'Default Professor',
             'email' => 'professor@videosapp.com',
             'password' => Hash::make('123456789'),
             'super_admin' => true,
         ]);
-
-        // Assign the superadmin to the professor
-        $professor->superadmin_id = $superadmin->id;
-        $professor->save();
 
         // Create a team for the professor
         self::creacioEquip($professor);
@@ -114,5 +112,11 @@ class CreacioUsuari
         self::creacioEquip($alumne);
 
         return $alumne;
+    }
+
+    public static function create_video_permissions(): void
+    {
+        Permission::create(['name' => 'view videos']);
+        Permission::create(['name' => 'manage videos']);
     }
 }

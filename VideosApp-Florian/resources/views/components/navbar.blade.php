@@ -1,7 +1,24 @@
 <!-- resources/views/components/navbar.blade.php -->
 <nav class="navbar">
-    <a href="{{ route('home') }}" >Videos App</a>
-    <a href="{{ route('home') }}">Home</a>
+    <ul>
+        <li><a href="{{ route('home') }}">Home</a></li>
+        <li><a href="{{ route('videos.index') }}">Videos</a></li>
+        @auth
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            @can('manage-videos')
+                <li><a href="{{ route('videos.index') }}">Manage Videos</a></li>
+            @endcan
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        @else
+            <li><a href="{{ route('login') }}">Login</a></li>
+            <li><a href="{{ route('register') }}">Register</a></li>
+        @endauth
+    </ul>
 </nav>
 
 <style>

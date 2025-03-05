@@ -20,10 +20,13 @@ class DatabaseSeeder extends Seeder
         Video::truncate();
         Role::truncate();
 
-        // Create roles
+        // Creacio rols
         $superAdminRole = Role::create(['name' => 'super-admin']);
         $regularUserRole = Role::create(['name' => 'regular-user']);
         $videoManagerRole = Role::create(['name' => 'video-manager']);
+
+        // Creacio permisos
+        CreacioUsuari::create_video_permissions();
 
         // Create users
         $superAdmin = CreacioUsuari::crearUsuariSuperAdmin();
@@ -32,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $defaultProfessor = CreacioUsuari::create_default_professor();
         $defaultAlumne = CreacioUsuari::create_default_alumne();
 
-        // Assign roles to users
+        // Asignacio de rols
         $superAdmin->assignRole($superAdminRole);
         $regularUser->assignRole($regularUserRole);
         $videoManager->assignRole($videoManagerRole);
