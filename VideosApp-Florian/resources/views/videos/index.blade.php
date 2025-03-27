@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <x-navbar />
+
     <style>
         .video-grid {
             display: flex;
@@ -38,7 +40,7 @@
         }
     </style>
 
-    <h1>All Videos</h1>
+    <h1>.</h1>
     <div class="video-grid">
         @foreach($videos as $video)
             <div class="video-card">

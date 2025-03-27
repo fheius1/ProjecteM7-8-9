@@ -58,7 +58,7 @@ class CreacioUsuari
         ]);
 
         // Assignar permisos
-        $user->givePermissionTo('manage videos');
+        $user->givePermissionTo('videosManager');
 
         // Crear un equip per l'usuari
         self::creacioEquip($user);
@@ -75,10 +75,10 @@ class CreacioUsuari
             'super_admin' => true,
         ]);
 
-        // Assignar permisos
+        // Assign all permissions
         $user->givePermissionTo(Permission::all());
 
-        // Crear un equip per l'usuari
+        // Create a team for the user
         self::creacioEquip($user);
 
         return $user;
@@ -114,9 +114,39 @@ class CreacioUsuari
         return $alumne;
     }
 
-    public static function create_video_permissions(): void
+    public static function create_video_permissions()
     {
-        Permission::create(['name' => 'view videos']);
-        Permission::create(['name' => 'manage videos']);
+        $permissionName = 'videosManager';
+
+        if (!Permission::where('name', $permissionName)->exists()) {
+            Permission::firstOrCreate(['name' => $permissionName]);
+        }
+
+        $roles = ['video-manager', 'super-admin'];
+        foreach ($roles as $roleName) {
+            $role = Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+            if (!$role->hasPermissionTo($permissionName)) {
+                $role->givePermissionTo($permissionName);
+            }
+        }
     }
+
+    public static function create_user_management_permission()
+    {
+        $permissionName = 'admmistradorUsuaris';
+
+        if (!Permission::where('name', $permissionName)->exists()) {
+            Permission::firstOrCreate(['name' => $permissionName]);
+        }
+
+        $superAdminRole = Role::firstOrCreate(['name' => 'super-admin', 'guard_name' => 'web']);
+        if (!$superAdminRole->hasPermissionTo($permissionName)) {
+            $superAdminRole->givePermissionTo($permissionName);
+        }
+    }
+
+
+
+
+
 }

@@ -3,10 +3,14 @@
     <ul>
         <li><a href="{{ route('home') }}">Home</a></li>
         <li><a href="{{ route('videos.index') }}">Videos</a></li>
+        <li><a href="{{ route('users.index') }}">Usuaris</a></li>
         @auth
             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             @can('manage-videos')
-                <li><a href="{{ route('videos.index') }}">Manage Videos</a></li>
+                <li><a href="{{ route('videos.manage.index') }}">Administrar Videos</a></li>
+            @endcan
+            @can('admmistradorUsuaris')
+                <li><a href="{{ route('users.manage.index') }}">Administrar Usuaris</a></li>
             @endcan
             <li>
                 <form action="{{ route('logout') }}" method="POST">
@@ -30,6 +34,17 @@
         align-items: center;
     }
 
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar li {
+        margin-right: 20px;
+    }
+
     .navbar a {
         color: #fff;
         text-decoration: none;
@@ -39,5 +54,9 @@
 
     .navbar a:hover {
         color: #e0e0e0;
+    }
+
+    .navbar form {
+        display: inline;
     }
 </style>

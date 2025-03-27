@@ -3,6 +3,8 @@
 @section('title', $video->title . ' - Videos App')
 
 @section('content')
+    <x-navbar />
+
     <style>
         /* General Styles */
         body {

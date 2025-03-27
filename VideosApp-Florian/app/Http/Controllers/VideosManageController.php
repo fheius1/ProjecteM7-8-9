@@ -13,8 +13,18 @@ class VideosManageController extends Controller
      */
     public function index()
     {
-        $videos = Video::all();
-        return view('videos.index', compact('videos'));
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+
+        if (Auth::user()->can('videosManager')) {
+            $videos = Video::all();
+            return view('videos.manage.index', compact('videos'));
+        }
+
+        // Si l'usuari no te permisos, dona l'error 403
+        abort(403);
     }
 
     /**
@@ -29,16 +39,26 @@ class VideosManageController extends Controller
     /**
      * Guardar un video
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'url' => 'required|url',
         ]);
 
-        $video = Video::create($validatedData);
-        return redirect()->route('videos.show', $video->id);
+        $video = new Video([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'url' => $request->input('url'),
+            'user_id' => Auth::id(),
+        ]);
+
+        if ($video->save()) {
+            return redirect()->route('videos.manage.index');
+        } else {
+            return redirect()->route('videos.manage.create');
+        }
     }
 
     /**
@@ -47,7 +67,7 @@ class VideosManageController extends Controller
     public function edit($id)
     {
         $video = Video::findOrFail($id);
-        return view('videos.edit', compact('video'));
+        return view('videos.manage.edit', compact('video'));
     }
 
     /**
@@ -55,15 +75,16 @@ class VideosManageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
             'url' => 'required|url',
         ]);
 
         $video = Video::findOrFail($id);
-        $video->update($validatedData);
-        return redirect()->route('videos.show', $video->id);
+        $video->update($request->all());
+
+        return redirect()->route('videos.manage.index');
     }
 
     /**
@@ -73,7 +94,16 @@ class VideosManageController extends Controller
     {
         $video = Video::findOrFail($id);
         $video->delete();
-        return redirect()->route('videos.index');
+
+        return redirect()->route('videos.manage.index');
+    }
+
+    /**
+     * Show the form for creating a new video.
+     */
+    public function create()
+    {
+        return view('videos.manage.create');
     }
 
 

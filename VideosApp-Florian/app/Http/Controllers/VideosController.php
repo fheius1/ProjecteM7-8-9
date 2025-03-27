@@ -19,19 +19,10 @@ class VideosController extends Controller
 
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-
-        if (Auth::user()->can('manage videos')) {
-            $videos = Video::all();
-            return view('videos.index', compact('videos'));
-        }
-
-        // Si l'usuari no te permisos, dona l'error 403
-        abort(403);
+        $videos = Video::all();
+        return view('videos.index', compact('videos'));
     }
+
 
     /**
      * Display a list of users who have tested the video.

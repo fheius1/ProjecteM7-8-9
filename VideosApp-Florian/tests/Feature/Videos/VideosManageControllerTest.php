@@ -61,7 +61,7 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsVideoManager();
 
-        $response = $this->get(route('videos.create'));
+        $response = $this->get(route('videos.manage.create'));
         $response->assertStatus(200);
     }
 
@@ -70,7 +70,7 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsRegularUser();
 
-        $response = $this->get(route('videos.create'));
+        $response = $this->get(route('videos.manage.create'));
         $response->assertStatus(403);
     }
 
@@ -79,7 +79,7 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsVideoManager();
 
-        $response = $this->post(route('videos.store'), [
+        $response = $this->post(route('videos.manage.store'), [
             'title' => 'New Video',
             'description' => 'Video description',
             'url' => 'http://example.com/video.mp4',
@@ -94,7 +94,7 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsRegularUser();
 
-        $response = $this->post(route('videos.store'), [
+        $response = $this->post(route('videos.manage.store'), [
             'title' => 'New Video',
             'description' => 'Video description',
             'url' => 'http://example.com/video.mp4',
@@ -110,7 +110,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->delete(route('videos.destroy', $video->id));
+        $response = $this->delete(route('videos.manage.destroy', $video->id));
         $response->assertStatus(302);
         $this->assertDatabaseMissing('videos', ['id' => $video->id]);
     }
@@ -122,7 +122,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->delete(route('videos.destroy', $video->id));
+        $response = $this->delete(route('videos.manage.destroy', $video->id));
         $response->assertStatus(403);
     }
 
@@ -133,7 +133,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->get(route('videos.edit', $video->id));
+        $response = $this->get(route('videos.manage.edit', $video->id));
         $response->assertStatus(200);
     }
 
@@ -144,7 +144,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->get(route('videos.edit', $video->id));
+        $response = $this->get(route('videos.manage.edit', $video->id));
         $response->assertStatus(403);
     }
 
@@ -155,7 +155,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->put(route('videos.update', $video->id), [
+        $response = $this->put(route('videos.manage.update', $video->id), [
             'title' => 'Updated Video',
             'description' => 'Updated description',
             'url' => 'http://example.com/updated_video.mp4',
@@ -172,7 +172,7 @@ class VideosManageControllerTest extends TestCase
 
         $video = Video::factory()->create();
 
-        $response = $this->put(route('videos.update', $video->id), [
+        $response = $this->put(route('videos.manage.update', $video->id), [
             'title' => 'Updated Video',
             'description' => 'Updated description',
             'url' => 'http://example.com/updated_video.mp4',
@@ -188,7 +188,7 @@ class VideosManageControllerTest extends TestCase
 
         $videos = Video::factory()->count(3)->create();
 
-        $response = $this->get(route('videos.index'));
+        $response = $this->get(route('videos.manage.index'));
         $response->assertStatus(200);
         $response->assertSee($videos[0]->title);
         $response->assertSee($videos[1]->title);
@@ -200,14 +200,14 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsRegularUser();
 
-        $response = $this->get(route('videos.index'));
+        $response = $this->get(route('videos.manage.index'));
         $response->assertStatus(403);
     }
 
     /** @test */
     public function guest_users_cannot_manage_videos()
     {
-        $response = $this->get(route('videos.index'));
+        $response = $this->get(route('videos.manage.index'));
         $response->assertRedirect(route('login'));
     }
 
@@ -216,7 +216,7 @@ class VideosManageControllerTest extends TestCase
     {
         $this->loginAsSuperAdmin();
 
-        $response = $this->get(route('videos.index'));
+        $response = $this->get(route('videos.manage.index'));
         $response->assertStatus(200);
     }
 }

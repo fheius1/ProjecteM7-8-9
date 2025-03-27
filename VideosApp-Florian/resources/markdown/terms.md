@@ -109,3 +109,53 @@ El projecte VideosApp és una aplicació web dissenyada per gestionar i visualit
 **Routes**: S'han creat les rutes "vídeos/manage" per al CRUD de vídeo amb el middleware corresponent i la ruta d'índex de vídeo.
 
 **Layout**: Modificar  la barra de navegacio per afegir les noves rutes
+
+
+## Sprint 5
+**Correcció d'errors**: Corregir els errors detectats en el Sprint 4.
+
+**Actualitzar taula videos**: Afegir el camp user_id a la taula de videos
+
+**Controllers**:
+- Crear el controller `UsersController` amb les funcions següents:'
+  - `index()`
+  - `show($)`
+- Crear el controlador `UserManagementController` amb les funcions per a poder realitzar el CRUD de usuaris:
+  - `index()`
+  - `show($id)`
+  - `edit($id)`
+  - `update($id)`
+  - `destroy($id)`
+
+**Vistes**: Crear les vistes per a la gestió d'usuaris:
+- `resources/views/users/manage/index.blade.php`: Conté la taula CRUD per als usuaris.
+- `resources/views/users/manage/create.blade.php`: Conté el formulari per crear usuaris, amb atributs `data-qa` per facilitar la identificació de la prova.
+- `resources/views/users/manage/edit.blade.php`: Conté el formulari per editar usuaris.
+- `resources/views/users/manage/delete.blade.php`: Conté la confirmació de l'eliminació de l'usuari.
+- `resources/views/users/manage/show.blade.php`: Conté la vista per veure els detalls de l'usuari.
+`resources/views/users/manage/index.blade.php`: Conte la llista dels usuaris
+
+**Helper**:
+- Actualitzar la funció `create_user_management_permission` per a crear el permisos d'usuaris.
+
+**UserTest**:Creacio de les següents funcions:
+- user_without_permissions_can_see_default_users_page,
+- not_logged_users_cannot_see_default_users_page,
+- user_without_permissions_can_see_user_show_page,
+- user_with_permissions_can_see_user_show_page,
+- not_logged_users_cannot_see_user_show_page
+
+**UsersManageControllerTest**: Creacio de les següents funcions:
+- loginAsVideoManager,
+- loginAsSuperAdmin,
+- loginAsRegularUser,
+- user_with_permissions_can_see_add_users, user_without_users_manage_create_cannot_see_add_users,  user_with_permissions_can_store_users,   user_without_permissions_cannot_store_users,  user_with_permissions_can_destroy_users, user_without_permissions_cannot_destroy_users,
+- user_with_permissions_can_see_edit_users,  user_without_permissions_cannot_see_edit_users,  
+- user_with_permissions_can_update_users,
+- user_without_permissions_cannot_update_users
+- user_with_permissions_can_manage_users,
+- regular_users_cannot_manage_users,
+- guest_users_cannot_manage_users,
+- superadmins_can_manage_users
+
+**Routes**: Afegir les rutes per a la gestio d'usuaris.
