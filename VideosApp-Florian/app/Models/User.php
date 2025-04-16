@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -22,6 +23,22 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+//    use SoftDeletes;
+
+
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        static::deleting(function ($user) {
+//            $user->team()->delete();
+//        });
+//    }
+//
+//    public function team()
+//    {
+//        return $this->hasOne(Team::class);
+//    }
 
     protected $fillable = [
         'name',
@@ -85,7 +102,7 @@ class User extends Authenticatable
     }
 
     // User.php
-    public function videos()
+    public function videos(): HasMany
     {
         return $this->hasMany(Video::class);
     }

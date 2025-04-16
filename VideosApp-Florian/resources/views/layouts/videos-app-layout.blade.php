@@ -23,19 +23,6 @@
                     </a>
                 @endguest
                 @auth
-                    @can('video_manager')
-                        <a href="{{ route('videos.manage.index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                            Gestionar Videos
-                        </a>
-                    @endcan
-                    @can('admmistradorUsuaris')
-                        <a href="{{ route('users.manage.index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                            Gestionar usuarios
-                        </a>
-                    @endcan
-                    <a href="{{ route('users.index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                        Llista usuaris
-                    </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">

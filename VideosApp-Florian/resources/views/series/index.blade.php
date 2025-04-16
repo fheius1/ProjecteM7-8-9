@@ -5,7 +5,7 @@
 
     <style>
         table {
-            width: 100%;
+            width: 120%;
             border-collapse: collapse;
         }
 
@@ -56,30 +56,36 @@
         }
     </style>
 
-    <h1>Usuaris</h1>
-    <form method="GET" action="{{ route('users.index') }}">
-        <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}" data-qa="search-input">
-        <button type="submit" data-qa="search-button">Search</button>
-    </form>
-    <table>
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Accions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($users as $user)
+    <div class="container">
+        <h1>Series</h1>
+        <form method="GET" action="{{ route('series.index') }}" class="search-form">
+            <input type="text" name="search" placeholder="Search series by title..." value="{{ request('search') }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    <a href="{{ route('users.show', $user->id) }}" data-qa="user-details-link">Informacio Usurai</a>
-                </td>
+                <th>Titul</th>
+                <th>Descripcio</th>
+                <th>Accions</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($series as $serie)
+                <tr>
+                    <td>
+                        <a href="{{ route('series.show', $serie->id) }}">{{ $serie->title }}</a>
+                    </td>
+                    <td>{{ $serie->description }}</td>
+                    <td>
+                        <a href="{{ route('series.show', $serie->id) }}" class="btn btn-info">Details</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
     <x-footer />
 @endsection

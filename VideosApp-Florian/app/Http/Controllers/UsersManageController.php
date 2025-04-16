@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,22 +32,33 @@ class UsersManageController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the form data
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create a new user
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
         ]);
 
-        // Redirect to the manage users page with a success message
-        return redirect()->route('users.manage.index');
+        // Creacio de team
+        $this->createTeamForUser($user);
+
+        return redirect()->route('users.index');
+    }
+
+    //Crea un equip per a l'usuari
+    protected function createTeamForUser(User $user): void
+    {
+
+        $team = new Team();
+        $team->name = $user->name . "'s Team";
+        $team->user_id = $user->id;
+        $team->personal_team = true;
+        $team->save();
     }
 
     /**

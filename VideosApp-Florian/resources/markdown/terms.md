@@ -159,3 +159,55 @@ El projecte VideosApp és una aplicació web dissenyada per gestionar i visualit
 - superadmins_can_manage_users
 
 **Routes**: Afegir les rutes per a la gestio d'usuaris.
+
+
+
+## Sprint 6
+**Correcció d'errors**: Corregir els errors detectats en el Sprint 5.
+
+**Migracio series**: Creo la migracio per a la taula series.
+
+**Control·ladors de series**: Creo els control·ladors per a la gestio de series.
+
+**Model Series**: Creo el model per a la taula series.
+
+**Helper de series**: Creo el helper per a la creacio de series per defecte.
+
+**Vistes de series**: Creo les vistes per a la gestio de series:
+- `resources/views/series/manage/index.blade.php`: Conté la taula CRUD per a les series.
+- `resources/views/series/manage/create.blade.php`: Conté el formulari per crear series, amb atributs `data-qa` per facilitar la identificació de la prova.
+- `resources/views/series/manage/edit.blade.php`: Conté el formulari per editar series.
+- `resources/views/series/manage/delete.blade.php`: Conté la confirmació de l'eliminació de la serie.
+- `resources/views/series/manage/index.blade.php`: Conte la llista de les series que poden veure tots els usuaris
+- `resources/views/series/manage/show.blade.php`: Conté la vista per veure els detalls de la serie.
+
+**Permissos en helpers**: Creo un nou permis per a la gestio de series en el helper.
+
+
+**Creacio de testos**: Creo els seguents testos:
+- `SeriesTest`:
+  - serie_have_videos()
+  
+
+- `SeriesManageControllerTest`
+  - loginAsVideoManager()
+  - loginAsSuperAdmin()
+  - loginAsRegularUser()
+  - user_with_permissions_can_see_add_series()
+  - user_without_series_manage_create_cannot_see_add_series()
+  - user_with_permissions_can_store_series()
+  - user_without_permissions_cannot_store_series()
+  - user_with_permissions_can_destroy_series()
+  - user_without_permissions_cannot_destroy_series()
+  - user_with_permissions_can_see_edit_series()
+  - user_without_permissions_cannot_see_edit_series()
+  - user_with_permissions_can_update_series()
+  - user_without_permissions_cannot_update_series()
+  - user_with_permissions_can_manage_series()
+  - regular_users_cannot_manage_series()
+  - guest_users_cannot_manage_series()
+  - superadmins_can_manage_series()
+
+**Rutes de series**: Afegeixo les rutes en web.php per a les operacions CRUD de series.
+
+**Navegacio**: Actualizo la barra de navegacio per a afegir les rutes de series.

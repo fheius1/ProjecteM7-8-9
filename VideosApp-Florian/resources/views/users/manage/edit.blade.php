@@ -74,4 +74,6 @@
             <button type="submit">Actualitzar</button>
         </form>
     </div>
+
+    <x-footer />
 @endsection

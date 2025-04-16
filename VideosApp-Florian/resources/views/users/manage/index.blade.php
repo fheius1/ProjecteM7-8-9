@@ -90,4 +90,5 @@
         @endforeach
         </tbody>
     </table>
+    <x-footer />
 @endsection

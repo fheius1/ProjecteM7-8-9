@@ -54,32 +54,45 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
+        h1, .create-series-link {
+            text-align: center;
+            font-size: 2em;
+            display: block;
+            margin-bottom: 20px;
+        }
     </style>
 
-    <h1>Usuaris</h1>
-    <form method="GET" action="{{ route('users.index') }}">
-        <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}" data-qa="search-input">
-        <button type="submit" data-qa="search-button">Search</button>
-    </form>
-    <table>
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Accions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($users as $user)
+    <h1>Administrar Series</h1>
+    @can('administrarSeries')
+        <a href="{{ route('series.manage.create') }}" class="create-series-link">Crear nova serie</a>
+        <table>
+            <thead>
             <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    <a href="{{ route('users.show', $user->id) }}" data-qa="user-details-link">Informacio Usurai</a>
-                </td>
+                <th>Títol</th>
+                <th>Descripció</th>
+                <th>Accions</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach ($series as $serie)
+                <tr>
+                    <td>{{ $serie->title }}</td>
+                    <td>{{ $serie->description }}</td>
+                    <td>
+                        <a href="{{ route('series.manage.edit', $serie->id) }}">Editar</a>
+                        <a href="{{ route('series.manage.delete', $serie->id) }}">Eliminar</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endcan
     <x-footer />
 @endsection
+
+
+
+
+
+

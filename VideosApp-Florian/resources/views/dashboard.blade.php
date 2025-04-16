@@ -8,6 +8,9 @@
             @can('admmistradorUsuaris')
                 <a href="{{ route('users.manage.index') }}" class="btn btn-secondary">Administrar Usuaris</a>
             @endcan
+            @can('administrarSeries')
+                <a href="{{ route('series.manage.index') }}" class="btn btn-secondary">Administrar Series</a>
+            @endcan
         </h2>
     </x-slot>
 

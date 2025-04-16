@@ -29,5 +29,10 @@ class Video extends Model
         return Carbon::parse($this->published_at)->timestamp;
     }
 
+    public function series()
+    {
+        return $this->belongsTo(Series::class);
+    }
+
 
 }

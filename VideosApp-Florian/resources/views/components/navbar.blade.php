@@ -5,20 +5,28 @@
         <li><a href="{{ route('videos.index') }}">Videos</a></li>
         <li><a href="{{ route('users.index') }}">Usuaris</a></li>
         @auth
-            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ route('series.index') }}">Series</a></li>
+
             @can('manage-videos')
                 <li><a href="{{ route('videos.manage.index') }}">Administrar Videos</a></li>
             @endcan
             @can('admmistradorUsuaris')
                 <li><a href="{{ route('users.manage.index') }}">Administrar Usuaris</a></li>
             @endcan
+            @can('administrarSeries')
+                <li><a href="{{ route('series.manage.index') }}">Administrar Series</a></li>
+            @endcan
+
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">Logout</button>
                 </form>
             </li>
+
         @else
+
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
         @endauth

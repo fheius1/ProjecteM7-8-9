@@ -146,6 +146,23 @@ class CreacioUsuari
     }
 
 
+    public static function create_series_management_permission(): void
+    {
+        $permissionName = 'administrarSeries';
+
+        // Check if the permission exists, if not, create it
+        if (!Permission::where('name', $permissionName)->exists()) {
+            Permission::firstOrCreate(['name' => $permissionName]);
+        }
+
+        // Assign the permission to the super-admin role
+        $superAdminRole = Role::firstOrCreate(['name' => 'super-admin', 'guard_name' => 'web']);
+        if (!$superAdminRole->hasPermissionTo($permissionName)) {
+            $superAdminRole->givePermissionTo($permissionName);
+        }
+    }
+
+
 
 
 
