@@ -54,10 +54,43 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .create-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-button a:hover {
+            background-color: #218838;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: bold;
+        }
     </style>
 
     <div class="container">
-        <h1>Series</h1>
+        <div class="header">
+            <h1>Series</h1>
+            <div class="create-button">
+                <a href="{{ route('series.manage.create') }}" class="btn btn-success">Create New Series</a>
+            </div>
+        </div>
         <form method="GET" action="{{ route('series.index') }}" class="search-form">
             <input type="text" name="search" placeholder="Search series by title..." value="{{ request('search') }}">
             <button type="submit">Search</button>

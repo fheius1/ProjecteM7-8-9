@@ -14,22 +14,22 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <nav class="flex items-center space-x-4">
-                <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                    Home
-                </a>
-                @guest
-                    <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm">
-                        Iniciar Sesión
-                    </a>
-                @endguest
-                @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">
-                            Cerrar sesión
-                        </button>
-                    </form>
-                @endauth
+{{--                <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">--}}
+{{--                    Home--}}
+{{--                </a>--}}
+{{--                @guest--}}
+{{--                    <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm">--}}
+{{--                        Iniciar Sesión--}}
+{{--                    </a>--}}
+{{--                @endguest--}}
+{{--                @auth--}}
+{{--                    <form method="POST" action="{{ route('logout') }}">--}}
+{{--                        @csrf--}}
+{{--                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">--}}
+{{--                            Cerrar sesión--}}
+{{--                        </button>--}}
+{{--                    </form>--}}
+{{--                @endauth--}}
             </nav>
         </div>
     </div>

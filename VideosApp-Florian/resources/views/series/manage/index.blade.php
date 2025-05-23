@@ -71,6 +71,7 @@
             <tr>
                 <th>Títol</th>
                 <th>Descripció</th>
+                <th>Video</th>
                 <th>Accions</th>
             </tr>
             </thead>
@@ -79,6 +80,7 @@
                 <tr>
                     <td>{{ $serie->title }}</td>
                     <td>{{ $serie->description }}</td>
+                    <td>{{ $serie->video ? $serie->video->title : 'No video assigned' }}</td>
                     <td>
                         <a href="{{ route('series.manage.edit', $serie->id) }}">Editar</a>
                         <a href="{{ route('series.manage.delete', $serie->id) }}">Eliminar</a>

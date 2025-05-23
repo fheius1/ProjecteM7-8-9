@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoCreated;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,11 +40,13 @@ class VideosManageController extends Controller
     /**
      * Guardar un video
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+
+
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'url' => 'required|url',
         ]);
 
@@ -55,6 +58,9 @@ class VideosManageController extends Controller
         ]);
 
         if ($video->save()) {
+
+//            event(new VideoCreated($video));
+
             return redirect()->route('videos.manage.index');
         } else {
             return redirect()->route('videos.manage.create');

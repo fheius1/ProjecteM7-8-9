@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Series;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Video;
 
 class SeriesManageController extends Controller
 {
@@ -13,7 +14,7 @@ class SeriesManageController extends Controller
      */
     public function index()
     {
-        $series = Series::all();
+        $series = Series::with('video')->get(); // Eager load the associated video
         return view('series.manage.index', compact('series'));
     }
 
@@ -21,7 +22,8 @@ class SeriesManageController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('series.manage.create', compact('users'));
+        $videos = Video::all();
+        return view('series.manage.create', compact('users', 'videos'));
     }
 
     /**
@@ -33,6 +35,7 @@ class SeriesManageController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'user_id' => 'required|exists:users,id',
+            'video_id' => 'nullable|exists:videos,id',
         ]);
 
         Series::create($validatedData);
@@ -47,28 +50,26 @@ class SeriesManageController extends Controller
     {
         $serie = Series::findOrFail($id);
         $users = User::all();
-        return view('series.manage.edit', compact('serie', 'users'));
+        $videos = Video::all();
+        return view('series.manage.edit', compact('serie', 'users', 'videos'));
     }
 
     /**
      * Actualitza la serie especificada.
      */
-    public function update(Request $request, series $series)
+    public function update(Request $request, Series $series)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image',
-            'user_name' => 'required|string|max:255',
-            'user_photo_url' => 'nullable|url',
-            'published_at' => 'nullable|date',
+            'video_id' => 'nullable|exists:videos,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $series->update($validated);
 
         return redirect()->route('series.manage.index');
     }
-
     /**
      * Suprimeix suaument la sèrie especificada.
      */

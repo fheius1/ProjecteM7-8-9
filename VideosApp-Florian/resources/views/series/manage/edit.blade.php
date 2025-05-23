@@ -56,6 +56,7 @@
             <form action="{{ route('series.manage.update', ['series' => $serie->id]) }}" method="POST" data-qa="edit-series-form">
                 @csrf
                 @method('PUT')
+
                 <div class="form-group">
                     <label for="title">Títol</label>
                     <input type="text" name="title" id="title" class="form-control" value="{{ $serie->title }}" required data-qa="series-title-input">
@@ -63,6 +64,17 @@
                 <div class="form-group">
                     <label for="description">Descripció</label>
                     <textarea name="description" id="description" class="form-control" required data-qa="series-description-input">{{ $serie->description }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="video_id">Video</label>
+                    <select name="video_id" id="video_id" class="form-control" required data-qa="series-video-id-select">
+                        <option value="" disabled>Select a video</option>
+                        @foreach($videos as $video)
+                            <option value="{{ $video->id }}" {{ $serie->video_id == $video->id ? 'selected' : '' }}>
+                                {{ $video->title }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="user_id">Usuari</label>

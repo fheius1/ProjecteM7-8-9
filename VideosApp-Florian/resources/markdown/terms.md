@@ -211,3 +211,69 @@ El projecte VideosApp és una aplicació web dissenyada per gestionar i visualit
 **Rutes de series**: Afegeixo les rutes en web.php per a les operacions CRUD de series.
 
 **Navegacio**: Actualizo la barra de navegacio per a afegir les rutes de series.
+
+
+
+## Sprint 7
+**Correcció d'errors**: Corregir els errors detectats en el Sprint 6.
+
+**Event VideoCreated**:
+- Crear l’event `VideoCreated` amb el constructor i `BroadcastOn`.
+- Al controller, disparar l’event al crear el vídeo.
+
+**Listener SendVideoCreatedNotification**:
+- Crear el listener `SendVideoCreatedNotification`.
+- Afegir la funció `handle(VideoCreated $event)` que:
+    - Envia un correu als administradors.
+    - Envia la notificació `VideoCreated` amb informació del vídeo relacionada amb l’event.
+
+**EventServiceProvider**:
+- Crear `app/Providers/EventServiceProvider.php`.
+- Registrar la notificació de la creació del vídeo.
+
+**Configuració de correu**:
+- Registrar-se a Mailtrap o Mailchimp per utilitzar el servidor de correus.
+- Configurar el `.env` per utilitzar les credencials de Mailtrap/Mailchimp/EmailJs.
+
+**Configuració de Pusher**:
+- Registrar-se a Pusher.
+- Configurar `.env` amb les credencials de Pusher.
+- A `config/broadcasting.php`, revisar que Pusher estigui configurat per defecte.
+
+**Event VideoCreated**:
+- A `App/Events/VideoCreated.php`, afegir la funció `broadcastAs()` i assegurar-se que implementa `ShouldBroadcast`.
+
+**Listener SendVideoCreatedNotification**:
+- Assegurar-se que Pusher transmet l’event.
+
+**Registrar Event**:
+- Registrar l’event a `app/Providers/EventServiceProvider.php`.
+
+**Disparar Event**:
+- Al controller, disparar l’event del push.
+
+**Configuració de Laravel Echo**:
+- Instal·lar `laravel-echo` i `pusher-js` amb npm.
+- Configurar Laravel Echo a `resources/js/bootstrap.js`.
+
+**Vista de notificacions push**:
+- Crear la vista per mostrar les notificacions.
+- Escoltar prèviament les notificacions.
+
+**Ruta de notificacions**:
+- Crear la ruta per a les notificacions.
+
+**Tests**:
+- A `videoNotificationsTest`, crear les funcions:
+    - `test_video_created_event_is_dispatched()`
+    - `test_push_notification_is_sent_when_video_is_created()`
+
+**Documentació**:
+- Afegir a `resources/markdown/terms.md` el que s’ha fet al Sprint.
+
+**Larastan**:
+- Comprovar en Larastan tots els fitxers creats.
+
+
+
+

@@ -52,7 +52,6 @@
 
     <div class="form-container">
         <h1>Crear Nova Serie</h1>
-        @can('administrarSeries')
             <form action="{{ route('series.manage.store') }}" method="POST" data-qa="create-series-form">
                 @csrf
                 <div class="form-group">
@@ -64,6 +63,15 @@
                     <textarea name="description" id="description" class="form-control" required data-qa="series-description-input"></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="video_id">Video</label>
+                    <select name="video_id" id="video_id" class="form-control" required>
+                        <option value="" disabled selected>Select a video</option>
+                        @foreach($videos as $video)
+                            <option value="{{ $video->id }}">{{ $video->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="user_id">Usuari</label>
                     <select name="user_id" id="user_id" class="form-control" required>
                         @foreach($users as $user)
@@ -73,7 +81,6 @@
                 </div>
                 <button type="submit" class="btn btn-success" data-qa="create-series-submit">Crear</button>
             </form>
-        @endcan
     </div>
 
     <x-footer />

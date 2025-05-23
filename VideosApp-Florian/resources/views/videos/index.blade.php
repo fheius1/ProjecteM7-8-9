@@ -38,9 +38,37 @@
         .video-card a:hover {
             color: #007bff;
         }
+
+        .create-button {
+            display: block;
+            margin: 10px auto;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .create-button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
     </style>
 
-    <h1>.</h1>
+    <h1> Videos </h1>
+
+    <a href="{{ route('videos.manage.create') }}" class="create-button">Create Video</a>
+
     <div class="video-grid">
         @foreach($videos as $video)
             <div class="video-card">

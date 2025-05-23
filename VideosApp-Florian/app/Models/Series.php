@@ -15,7 +15,19 @@ class Series extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'user_id'];
+    protected $fillable = [
+        'title',
+        'description',
+        'user_id',
+        'video_id', // Ensure this column exists in your database
+    ];
+
+
+
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
 
 
     /**

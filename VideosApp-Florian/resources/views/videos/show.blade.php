@@ -6,7 +6,7 @@
     <x-navbar />
 
     <style>
-        /* General Styles */
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
             min-height: 100vh;
         }
 
-        /* Page Content Styles */
+
         .container {
             max-width: 800px;
             margin: 30px auto;
@@ -25,7 +25,7 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            flex: 1; /* Ensure content expands to fill available space */
+            flex: 1;
         }
 
         .video-title {
@@ -36,7 +36,7 @@
 
         .video-container {
             position: relative;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%;
             background: #000;
             border-radius: 8px;
             overflow: hidden;
@@ -51,9 +51,40 @@
             height: 100%;
             border: none;
         }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons a,
+        .action-buttons form button {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .action-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+        .action-buttons form button {
+            background-color: #dc3545;
+        }
+
+        .action-buttons form button:hover {
+            background-color: #a71d2a;
+        }
     </style>
 
-    <!-- Contingut de la pagina -->
+
     <div class="container">
         <h1 class="video-title">{{ $video->title }}</h1>
         <p><strong>Description:</strong> {{ $video->description }}</p>
@@ -65,6 +96,15 @@
             <iframe
                 src="{{ $video->url }}"
                 allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ route('videos.manage.edit', $video->id) }}">Edit</a>
+            <form action="{{ route('videos.manage.destroy', $video->id) }}" method="POST" onsubmit="return">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
         </div>
     </div>
 @endsection

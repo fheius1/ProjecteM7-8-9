@@ -31,13 +31,16 @@
         <p>{{ $serie->description }}</p>
 
         <h2>Videos</h2>
-        <ul>
-            @forelse($serie->videos as $video)
-                <li>{{ $video->title }}</li>
-            @empty
-                <p>Esta serie no te cap video associat</p>
-            @endforelse
-        </ul>
+        @if($serie->videos->isNotEmpty())
+            <ul>
+                @foreach($serie->videos as $video)
+                    <li>{{ $video->title }}</li>
+                @endforeach
+            </ul>
+        @else
+            <p>Aquesta sèrie no té cap vídeo associat.</p>
+        @endif
+
 
         <a href="{{ route('series.index') }}">Llista series</a>
     </div>

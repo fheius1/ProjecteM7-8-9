@@ -50,11 +50,8 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Eliminar serie</button>
-                {{--            <form action="{{ route('series.manage.unassign', $serie->id) }}" method="POST" class="mt-3">--}}
-                {{--                @csrf--}}
-                {{--                @method('PATCH')--}}
-                {{--                <button type="submit" class="btn btn-warning">Anul·lar assignacio</button>--}}
-                {{--            </form>--}}
+                <a href="{{ route('series.manage.index') }}" class="btn btn-secondary">Cancelar</a>
+
             </form>
             <a href="{{ route('series.manage.index') }}" class="btn btn-secondary mt-3">Cancelar</a>
         @endcan

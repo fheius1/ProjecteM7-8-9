@@ -21,12 +21,13 @@ Route::middleware([
 ])->group(function () {
     Route::middleware(['auth', 'can:manage-videos'])->group(function () {
         Route::get('/videosmanage', [VideosManageController::class, 'index'])->name('videos.manage.index');
-        Route::get('/videosmanage/create', [VideosManageController::class, 'create'])->name('videos.manage.create');
         Route::post('/videosmanage', [VideosManageController::class, 'store'])->name('videos.manage.store');
         Route::get('/videosmanage/{id}/edit', [VideosManageController::class, 'edit'])->name('videos.manage.edit');
         Route::put('/videosmanage/{id}', [VideosManageController::class, 'update'])->name('videos.manage.update');
         Route::delete('/videosmanage/{id}', [VideosManageController::class, 'destroy'])->name('videos.manage.destroy');
     });
+    Route::get('/videos/create', [VideosController::class, 'create'])->name('videos.manage.create');
+    Route::post('/videos', [VideosController::class, 'store'])->name('videos.manage.store');
 
     Route::middleware(['auth', 'can:admmistradorUsuaris'])->group(function () {
         Route::get('/users/manage', [UsersManageController::class, 'index'])->name('users.manage.index');
@@ -47,6 +48,9 @@ Route::middleware([
         Route::delete('/series/manage/{series}', [SeriesManageController::class, 'destroy'])->name('series.manage.destroy');
     });
 
+    Route::get('/series/create', [SeriesController::class, 'create'])->name('series.manage.create');
+    Route::post('/series', [SeriesController::class, 'store'])->name('series.manage.store');
+
 
     Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
     Route::get('/series/{series}', [SeriesController::class, 'show'])->name('series.show');
@@ -57,3 +61,4 @@ Route::middleware([
 
 Route::get('/videos', [VideosController::class, 'index'])->name('videos.index');
 Route::get('/videos/{id}', [VideosController::class, 'show'])->name('videos.show');
+Route::get('/notifications', function () {return view('notifications');});
